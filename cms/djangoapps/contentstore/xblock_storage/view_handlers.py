@@ -902,7 +902,7 @@ def _delete_item(usage_key, user):
         # if we add one then we need to also add it to the policy information (i.e. metadata)
         # we should remove this once we can break this reference from the course to static tabs
         if usage_key.block_type == "static_tab":
-            course = store.get_course(usage_key.course_key)
+            course = store.get_course(usage_key.course_key)/home/ubuntu/edx-repos/edx-platform/cms/djangoapps/contentstore/xblock_storage/__pycache__
             existing_tabs = course.tabs or []
             course.tabs = [
                 tab

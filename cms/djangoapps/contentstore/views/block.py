@@ -43,7 +43,7 @@ from ..helpers import (
 )
 from .preview import get_preview_fragment
 
-from cms.djangoapps.contentstore.xblock_storage_handlers.view_handlers import (
+from cms.djangoapps.contentstore.xblock_storage.view_handlers import (
     handle_xblock,
     create_xblock_info,
     load_services_for_studio,
@@ -51,7 +51,7 @@ from cms.djangoapps.contentstore.xblock_storage_handlers.view_handlers import (
     get_xblock,
     delete_orphans,
 )
-from cms.djangoapps.contentstore.xblock_storage_handlers.xblock_helpers import usage_key_with_run
+from cms.djangoapps.contentstore.xblock_storage.xblock_helpers import usage_key_with_run
 
 
 __all__ = [

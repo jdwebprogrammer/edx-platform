@@ -1,6 +1,6 @@
 """
-The xblock_storage_handlers folder contains service methods that implement the business logic for view endpoints
-located in contentstore/views/block.py. It is renamed to xblock_storage_handlers to reflect its responsibility
+The xblock_storage folder contains service methods that implement the business logic for view endpoints
+located in contentstore/views/block.py. It is renamed to xblock_storage to reflect its responsibility
 of handling storage-related operations of xblocks, such as creation, retrieval, and deletion.
 
 The view_handlers.py file includes business methods called by the view endpoints.

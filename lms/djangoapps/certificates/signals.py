@@ -25,6 +25,7 @@ from lms.djangoapps.certificates.models import (
     GeneratedCertificate
 )
 from lms.djangoapps.certificates.api import auto_certificate_generation_enabled
+from lms.djangoapps.certificates.services import CertificateService
 from lms.djangoapps.verify_student.services import IDVerificationService
 from openedx.core.djangoapps.content.course_overviews.signals import COURSE_PACING_CHANGED
 from openedx.core.djangoapps.signals.signals import (
@@ -32,7 +33,7 @@ from openedx.core.djangoapps.signals.signals import (
     COURSE_GRADE_NOW_PASSED,
     LEARNER_NOW_VERIFIED
 )
-from openedx_events.learning.signals import CERTIFICATE_CREATED
+from openedx_events.learning.signals import CERTIFICATE_CREATED, EXAM_ATTEMPT_REJECTED
 
 log = logging.getLogger(__name__)
 
@@ -174,3 +175,13 @@ def listen_for_certificate_created_event(sender, signal, **kwargs):
             event_data={'certificate': kwargs['certificate']},
             event_metadata=kwargs['metadata']
         )
+
+@receiver(EXAM_ATTEMPT_REJECTED)
+def listen_for_exam_attempt_rejected_event(**kwargs):
+    """
+    Consume `EXAM_ATTEMPT_REJECTED` events from the event bus.
+    Pass the received data to invalidate_certificate in the services.py file in this folder.
+    """
+    user_id = kwargs.get('student_user', None).id
+    course_key = kwargs.get('course_key', None)
+    CertificateService.invalidate_certificate(user_id, course_key)
